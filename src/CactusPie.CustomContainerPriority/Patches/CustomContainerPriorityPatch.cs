@@ -24,11 +24,6 @@ namespace CactusPie.CustomContainerPriority.Patches
             EquipmentClass equipment, 
             Item item)
         {
-            if (!CustomContainerPriorityPlugin.CustomLootPriority.Value)
-            {
-                return true;
-            }
-            
             Slot slot = equipment.GetSlot(EquipmentSlot.TacticalVest);
             Slot slot2 = equipment.GetSlot(EquipmentSlot.Backpack);
             Slot slot3 = equipment.GetSlot(EquipmentSlot.Pockets);
@@ -60,7 +55,19 @@ namespace CactusPie.CustomContainerPriority.Patches
                 }
             }
 
-            __result = new ArrayPriority[4]
+            if (!CustomContainerPriorityPlugin.CustomLootPriority.Value)
+            {
+                __result = OrderUsingCustomRules(array, array2, array3, array4);
+                return false;
+            }
+            
+            __result = OrderUsingOriginalRules(item, array4, array2, array, array3);
+            return false;
+        }
+
+        private static IEnumerable<GClass2318> OrderUsingCustomRules(IEnumerable<GClass2318> array, IEnumerable<GClass2318> array2, IEnumerable<GClass2318> array3, IEnumerable<GClass2318> array4)
+        {
+            return new ArrayPriority[4]
                 {
                     new ArrayPriority(array, CustomContainerPriorityPlugin.VestPriority.Value),
                     new ArrayPriority(array2, CustomContainerPriorityPlugin.BackpackPriority.Value),
@@ -69,8 +76,26 @@ namespace CactusPie.CustomContainerPriority.Patches
                 }
                 .OrderBy(x => x.Priority)
                 .SelectMany(x => x.Array);
-            
-            return false;
+        }
+
+        private static IEnumerable<GClass2318> OrderUsingOriginalRules(Item item, IEnumerable<GClass2318> array4, IEnumerable<GClass2318> array2, IEnumerable<GClass2318> array, IEnumerable<GClass2318> array3)
+        {
+            if (!(item is BulletClass) && !(item is MagazineClass))
+            {
+                if (item is GClass2548)
+                {
+                    return array4.Concat(array2).Concat(array).Concat(array3);
+                }
+
+                if (item is GrenadeClass)
+                {
+                    return array3.Concat(array).Concat(array2).Concat(array4);
+                }
+
+                return array2.Concat(array).Concat(array3).Concat(array4);
+            }
+
+            return array.Concat(array3).Concat(array2).Concat(array4);
         }
     }
 }
