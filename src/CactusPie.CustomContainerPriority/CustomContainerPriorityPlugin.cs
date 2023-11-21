@@ -55,7 +55,7 @@ namespace CactusPie.CustomContainerPriority
             (
                 fillOrderSectionName,
                 "Reverse fill backpack",
-                true,
+                false,
                 new ConfigDescription
                 (
                     "Fill the backpack starting from the last cell"
@@ -66,7 +66,7 @@ namespace CactusPie.CustomContainerPriority
             (
                 fillOrderSectionName,
                 "Reverse fill pockets",
-                true,
+                false,
                 new ConfigDescription
                 (
                     "Fill pockets starting from the last cell"
@@ -77,7 +77,7 @@ namespace CactusPie.CustomContainerPriority
             (
                 fillOrderSectionName,
                 "Reverse fill secure container",
-                true,
+                false,
                 new ConfigDescription
                 (
                     "Fill the secure container starting from the last cell"
@@ -88,7 +88,7 @@ namespace CactusPie.CustomContainerPriority
             (
                 fillOrderSectionName,
                 "Reverse fill vest",
-                true,
+                false,
                 new ConfigDescription
                 (
                     "Fill the vest starting from the last cell"
@@ -99,7 +99,7 @@ namespace CactusPie.CustomContainerPriority
             (
                 fillOrderSectionName,
                 "Reverse fill stash",
-                true,
+                false,
                 new ConfigDescription
                 (
                     "Fill the hideout stash starting from the last cell"
