@@ -19,10 +19,6 @@ namespace CactusPie.CustomContainerPriority
         
         internal static ConfigEntry<bool> ReverseFillSecureContainer { get; set; }
         
-        internal static ConfigEntry<bool> ReverseFillStash { get; set; }
-        
-        internal static ConfigEntry<bool> OnlyReverseFillInRaid { get; set; }
-        
         internal static ConfigEntry<int> BackpackPriority { get; set; }
 
         internal static ConfigEntry<int> VestPriority { get; set; }
@@ -92,28 +88,6 @@ namespace CactusPie.CustomContainerPriority
                 new ConfigDescription
                 (
                     "Fill the vest starting from the last cell"
-                )
-            );
-            
-            ReverseFillStash = Config.Bind
-            (
-                fillOrderSectionName,
-                "Reverse fill stash",
-                false,
-                new ConfigDescription
-                (
-                    "Fill the hideout stash starting from the last cell"
-                )
-            );
-            
-            OnlyReverseFillInRaid = Config.Bind
-            (
-                fillOrderSectionName,
-                "Only reverse fill in raid",
-                true,
-                new ConfigDescription
-                (
-                    "Apply the reverse order only in raid. Deselect this if you want to also apply it in your hideout"
                 )
             );
             

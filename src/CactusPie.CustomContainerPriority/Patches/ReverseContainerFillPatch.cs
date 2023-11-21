@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Aki.Reflection.Patching;
 using CactusPie.CustomContainerPriority.Helpers;
@@ -29,6 +30,11 @@ namespace CactusPie.CustomContainerPriority.Patches
             List<int> secondDimensionSpaces,
             bool invertDimensions = false)
         {
+            if (!GameHelper.IsInGame())
+            {
+                return true;
+            }
+            
             if (!CustomContainerPriorityPlugin.ReverseFillBackpack.Value)
             {
                 return true;
@@ -36,8 +42,6 @@ namespace CactusPie.CustomContainerPriority.Patches
 
             Item containerItem = __instance?.ParentItem;
             
-            bool isStash = false;
-
             if (containerItem is GClass2496)
             {
                 if (!CustomContainerPriorityPlugin.ReverseFillBackpack.Value)
@@ -62,30 +66,6 @@ namespace CactusPie.CustomContainerPriority.Patches
             else if (containerItem is ItemContainerClass)
             {
                 if (!CustomContainerPriorityPlugin.ReverseFillSecureContainer.Value)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                isStash = containerItem is StashClass;
-                if (isStash)
-                {
-                    if (!CustomContainerPriorityPlugin.ReverseFillStash.Value)
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-
-            }
-
-            if (CustomContainerPriorityPlugin.OnlyReverseFillInRaid.Value && !isStash)
-            {
-                if (!GameHelper.IsInGame())
                 {
                     return true;
                 }

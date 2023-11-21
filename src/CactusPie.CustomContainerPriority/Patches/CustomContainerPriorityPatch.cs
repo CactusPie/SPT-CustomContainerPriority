@@ -37,7 +37,7 @@ namespace CactusPie.CustomContainerPriority.Patches
             IEnumerable<GClass2318> array3 = gClass3 != null ? gClass3.Grids : Array.Empty<GClass2318>();
             IEnumerable<GClass2318> array4 = itemContainerClass != null ? itemContainerClass.Grids : Array.Empty<GClass2318>();
 
-            if (!CustomContainerPriorityPlugin.OnlyReverseFillInRaid.Value || GameHelper.IsInGame())
+            if (GameHelper.IsInGame())
             {
                 if (CustomContainerPriorityPlugin.ReverseFillBackpack.Value)
                 {
