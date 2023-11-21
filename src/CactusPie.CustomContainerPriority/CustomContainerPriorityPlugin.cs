@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace CactusPie.CustomContainerPriority
 {
-    [BepInPlugin("com.cactuspie.customcontainerpriority", "CactusPie.CustomContainerPriority", "1.0.0")]
+    [BepInPlugin("com.cactuspie.customcontainerpriority", "CactusPie.CustomContainerPriority", "1.1.0")]
     public class CustomContainerPriorityPlugin : BaseUnityPlugin
     {
         internal static ConfigEntry<bool> CustomLootPriority { get; set; }
