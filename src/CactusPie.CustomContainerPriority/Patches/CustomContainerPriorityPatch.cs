@@ -55,7 +55,7 @@ namespace CactusPie.CustomContainerPriority.Patches
                 }
             }
 
-            if (!CustomContainerPriorityPlugin.CustomLootPriority.Value)
+            if (CustomContainerPriorityPlugin.CustomLootPriority.Value)
             {
                 __result = OrderUsingCustomRules(array, array2, array3, array4);
                 return false;
