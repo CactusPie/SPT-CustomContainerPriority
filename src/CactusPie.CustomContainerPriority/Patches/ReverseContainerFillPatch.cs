@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Aki.Reflection.Patching;
+using CactusPie.CustomContainerPriority.Helpers;
 using Comfort.Common;
 using EFT;
 using EFT.InventoryLogic;
@@ -84,9 +85,7 @@ namespace CactusPie.CustomContainerPriority.Patches
 
             if (CustomContainerPriorityPlugin.OnlyReverseFillInRaid.Value && !isStash)
             {
-                bool inGame = Singleton<GameWorld>.Instance != null;
-
-                if (!inGame)
+                if (!GameHelper.IsInGame())
                 {
                     return true;
                 }

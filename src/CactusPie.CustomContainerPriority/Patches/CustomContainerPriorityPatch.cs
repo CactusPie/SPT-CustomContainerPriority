@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Aki.Reflection.Patching;
 using CactusPie.CustomContainerPriority.Data;
+using CactusPie.CustomContainerPriority.Helpers;
 using EFT.InventoryLogic;
 
 namespace CactusPie.CustomContainerPriority.Patches
@@ -36,10 +37,28 @@ namespace CactusPie.CustomContainerPriority.Patches
             GClass2496 gClass2 = slot2.ContainedItem as GClass2496;
             GClass2495 gClass3 = slot3.ContainedItem as GClass2495;
             ItemContainerClass itemContainerClass = slot4.ContainedItem as ItemContainerClass;
-            GClass2318[] array = gClass != null ? gClass.Grids : Array.Empty<GClass2318>();
-            GClass2318[] array2 = gClass2 != null ? gClass2.Grids : Array.Empty<GClass2318>();
-            GClass2318[] array3 = gClass3 != null ? gClass3.Grids : Array.Empty<GClass2318>();
-            GClass2318[] array4 = itemContainerClass != null ? itemContainerClass.Grids : Array.Empty<GClass2318>();
+            IEnumerable<GClass2318> array = gClass != null ? gClass.Grids : Array.Empty<GClass2318>();
+            IEnumerable<GClass2318> array2 = gClass2 != null ? gClass2.Grids : Array.Empty<GClass2318>();
+            IEnumerable<GClass2318> array3 = gClass3 != null ? gClass3.Grids : Array.Empty<GClass2318>();
+            IEnumerable<GClass2318> array4 = itemContainerClass != null ? itemContainerClass.Grids : Array.Empty<GClass2318>();
+
+            if (!CustomContainerPriorityPlugin.OnlyReverseFillInRaid.Value || GameHelper.IsInGame())
+            {
+                if (CustomContainerPriorityPlugin.ReverseFillBackpack.Value)
+                {
+                    array2 = array2.Reverse();
+                }
+            
+                if (CustomContainerPriorityPlugin.ReverseFillPockets.Value)
+                {
+                    array3 = array3.Reverse();
+                }
+            
+                if (CustomContainerPriorityPlugin.ReverseFillVest.Value)
+                {
+                    array = array.Reverse();
+                }
+            }
 
             __result = new ArrayPriority[4]
                 {
@@ -50,7 +69,7 @@ namespace CactusPie.CustomContainerPriority.Patches
                 }
                 .OrderBy(x => x.Priority)
                 .SelectMany(x => x.Array);
-
+            
             return false;
         }
     }
